@@ -1,0 +1,12 @@
+parameters:
+  - name: body
+    in: body
+    required: true
+responses:
+  200:
+    description: A JSON object with an ID to be used in /receipts/<id>/points
+    schema:
+      type: object
+      properties:
+        id:
+          type: string

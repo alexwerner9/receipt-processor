@@ -1,28 +1,18 @@
+import os
 from uuid import uuid4
 
-from database import database_receipts
+from app.database import database_receipts
+from app.helpers import documentation_file
+from app.rules import RulesHelper
+from flasgger import swag_from
 from flask import Blueprint, Flask, Response, request
-from rules import RulesHelper
 
 receipts = Blueprint('receipts', __name__)
 
 @receipts.route('/process', methods=['POST'])
+@swag_from(documentation_file('receipts', 'process.yml'))
 def process():
-    """Takes in a JSON receipt and returns a JSON object with an ID.
-    ---
-    parameters:
-        - name: body
-          in: body
-          required: true
-    responses:
-        200:
-            description: A JSON object with an ID to be used in /receipts/<id>/points
-            schema:
-                type: object
-                properties:
-                    id:
-                        type: string
-    """
+    """Takes in a JSON receipt and returns a JSON object with an ID."""
     receipt = request.get_json(silent=True)
     if not receipt:
         return Response(response="JSON was invalid", status=400)
@@ -34,23 +24,9 @@ def process():
 
 
 @receipts.route('/<id>/points', methods=['GET'])
+@swag_from(documentation_file('receipts', 'points.yml'))
 def points(id):
-    """Takes a receipt ID and returns the points.
-    ---
-    parameters:
-        - name: id
-          in: path
-          type: string
-          required: true
-    responses:
-        200:
-            description: a JSON with the points
-            schema:
-                type: object
-                properties:
-                    points:
-                        type: string
-    """
+    """Takes a receipt ID and returns the points."""
     print(database_receipts)
     receipt = database_receipts.get(id)
     if not receipt:
@@ -58,4 +34,3 @@ def points(id):
     
     points = RulesHelper.calculate(receipt)
     return {'points': points}
-
