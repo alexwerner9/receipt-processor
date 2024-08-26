@@ -5,4 +5,4 @@ COPY . .
 RUN pip install -r requirements.txt
 
 ENTRYPOINT ["gunicorn"]
-CMD ["-b", "0.0.0.0:8000", "-w", "4", "app:create_app()"]
+CMD ["-b", "0.0.0.0:8000", "-w", "1", "receipt_processor:create_app()"]

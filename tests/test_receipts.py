@@ -1,5 +1,4 @@
 """Tests for the /receipts endpoints."""
-import json
 from typing import Dict
 
 import pytest

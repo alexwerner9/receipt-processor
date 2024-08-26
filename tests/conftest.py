@@ -1,7 +1,7 @@
 """Unit test fixtures."""
 import pytest
 
-from app import create_app
+from receipt_processor import create_app
 
 
 @pytest.fixture()

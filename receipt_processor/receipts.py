@@ -5,9 +5,9 @@ from uuid import uuid4
 from flasgger import swag_from
 from flask import Blueprint, Flask, Response, request
 
-from app.database import database_receipts
-from app.helpers import documentation_file
-from app.rules import RulesHelper
+from receipt_processor.database import database_receipts
+from receipt_processor.helpers import documentation_file
+from receipt_processor.rules import RulesHelper
 
 receipts = Blueprint('receipts', __name__)
 
