@@ -1,5 +1,7 @@
 FROM python:3.12.5-bookworm
 
+WORKDIR /receipt-processor
+
 COPY . .
 
 RUN pip install -r requirements.txt
