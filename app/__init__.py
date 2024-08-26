@@ -1,6 +1,8 @@
-import config
+"""Flask app factory."""
 from flasgger import Swagger
 from flask import Flask
+
+import config
 
 
 def create_app(test_config=None):

@@ -1,9 +1,10 @@
-
+"""All rules. If desired, these can be split into separate files in the future."""
 import math
 from typing import Dict
 
 
 class BaseRule:
+    """Base rule class. All children must implement calculate function."""
     @staticmethod
     def calculate(receipt: Dict):
         raise NotImplementedError
@@ -73,6 +74,7 @@ class OddDate(BaseRule):
 
 
 class TwoAndFour(BaseRule):
+    """Points = 10 points if between 2pm and 4pm."""
     @staticmethod
     def calculate(receipt: Dict):
         purchase_time = receipt.get('purchaseTime', '00:00')
@@ -89,6 +91,16 @@ class RulesHelper:
 
     @staticmethod
     def calculate(receipt: Dict) -> int:
+        """Calculate the number of points based on receipt.
+
+        Args:
+            receipt (Dict): the receipt to calculate points for
+
+        Returns:
+            int: the number of points
+        """
+        # in case we want to handle different receipts with different rules
+        # in the future
         rules = RulesHelper.rule_groups['main']
         points = 0
         for rule in rules:

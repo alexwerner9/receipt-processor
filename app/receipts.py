@@ -1,11 +1,13 @@
+"""Route handling for the /receipts endpoints."""
 import os
 from uuid import uuid4
+
+from flasgger import swag_from
+from flask import Blueprint, Flask, Response, request
 
 from app.database import database_receipts
 from app.helpers import documentation_file
 from app.rules import RulesHelper
-from flasgger import swag_from
-from flask import Blueprint, Flask, Response, request
 
 receipts = Blueprint('receipts', __name__)
 
@@ -19,7 +21,6 @@ def process():
     
     receipt_id = str(uuid4())
     database_receipts[receipt_id] = receipt
-    print(database_receipts)
     return {'id': receipt_id}
 
 
@@ -27,7 +28,6 @@ def process():
 @swag_from(documentation_file('receipts', 'points.yml'))
 def points(id):
     """Takes a receipt ID and returns the points."""
-    print(database_receipts)
     receipt = database_receipts.get(id)
     if not receipt:
         return Response(response=f"No receipt with id {id} found.", status=404)

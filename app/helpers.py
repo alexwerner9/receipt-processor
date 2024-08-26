@@ -15,6 +15,5 @@ def documentation_file(*paths: str) -> str:
         str: the joined path
     """
     with current_app.app_context():
-        print(current_app.config['DOCUMENTATION_FOLDER'])
         path = os.path.join(current_app.config['DOCUMENTATION_FOLDER'], *paths)
         return path

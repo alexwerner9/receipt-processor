@@ -2,6 +2,31 @@ parameters:
   - name: body
     in: body
     required: true
+    schema:
+      $ref: '#/definitions/Receipt'
+definitions:
+  Receipt:
+    type: object
+    properties:
+      retailer:
+        type: string
+      purchaseDate:
+        type: string
+      purchaseTime:
+        type: string
+      total:
+        type: string
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Item'
+  Item:
+    type: object
+    properties:
+      shortDescription:
+        type: string
+      price:
+        type: string
 responses:
   200:
     description: A JSON object with an ID to be used in /receipts/<id>/points
@@ -10,3 +35,4 @@ responses:
       properties:
         id:
           type: string
+          

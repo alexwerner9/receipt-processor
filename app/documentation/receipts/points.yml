@@ -10,4 +10,5 @@ responses:
       type: object
       properties:
         points:
-          type: string
+          type: integer
+          
